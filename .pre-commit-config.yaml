@@ -1,0 +1,65 @@
+# Pre-commit hooks for repo-sage
+# See https://pre-commit.com for more information
+
+repos:
+  # Black - Python code formatter
+  - repo: https://github.com/psf/black
+    rev: 24.8.0
+    hooks:
+      - id: black
+        name: Format code with Black
+        language_version: python3.11
+        args: [--line-length=88]
+
+  # Ruff - Fast Python linter
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        name: Lint with Ruff
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
+        name: Format with Ruff
+
+  # General file checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+        name: Remove trailing whitespace
+      - id: end-of-file-fixer
+        name: Fix end of files
+      - id: check-yaml
+        name: Check YAML syntax
+      - id: check-added-large-files
+        name: Check for large files
+        args: [--maxkb=1000]
+      - id: check-merge-conflict
+        name: Check for merge conflicts
+      - id: check-toml
+        name: Check TOML syntax
+      - id: mixed-line-ending
+        name: Fix mixed line endings
+
+  # Python-specific checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-ast
+        name: Check Python AST
+      - id: check-builtin-literals
+        name: Check builtin type constructor use
+      - id: check-docstring-first
+        name: Check docstring is first
+      - id: debug-statements
+        name: Check for debugger imports
+
+  # MyPy - Type checking
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.11.2
+    hooks:
+      - id: mypy
+        name: Type check with MyPy
+        additional_dependencies: [types-requests]
+        args: [--ignore-missing-imports, --no-strict-optional]
+        exclude: ^tests/
