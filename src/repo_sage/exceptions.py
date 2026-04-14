@@ -23,3 +23,9 @@ class InvalidRepositoryError(RepoSageException):
     """Raised when repository information is invalid."""
 
     pass
+
+
+class ChunkingError(RepoSageException):
+    """Raised when document chunking fails."""
+
+    pass

@@ -62,4 +62,4 @@ repos:
         name: Type check with MyPy
         additional_dependencies: [types-requests]
         args: [--ignore-missing-imports, --no-strict-optional]
-        exclude: ^tests/
+        exclude: ^(tests/|examples?.*\.py|demo.*\.py)
