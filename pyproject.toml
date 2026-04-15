@@ -9,6 +9,9 @@ dependencies = [
     "requests>=2.33.1",
     "openai>=1.12.0",
     "python-dotenv>=1.0.0",
+    "minsearch>=0.0.10",
+    "sentence-transformers>=5.4.1",
+    "pydantic-ai>=0.0.14",
 ]
 
 [project.optional-dependencies]

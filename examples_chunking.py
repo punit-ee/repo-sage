@@ -1,5 +1,8 @@
 """Example usage of repo-sage with chunking strategies."""
 
+from minsearch import Index
+
+from repo_sage import read_repo_data
 from repo_sage.chunking import (
     DocumentChunker,
     IntelligentChunkingStrategy,
@@ -150,26 +153,29 @@ def example_github_integration():
     # Uncomment and modify for actual use:
     #
     # # Download repository
-    # documents = read_repo_data(
-    #     repo_owner="octocat",
-    #     repo_name="Hello-World",
-    #     branch_name="main"
-    # )
+    documents = read_repo_data(
+        repo_owner="DataTalksClub",
+        repo_name="faq",
+    )
     #
-    # print(f"Downloaded {len(documents)} documents from GitHub")
+    print(f"Downloaded {len(documents)} documents from GitHub")
     #
     # # Chunk the documents
-    # strategy = SlidingWindowStrategy(window_size=2000, step_size=1000)
-    # chunker = DocumentChunker(strategy)
-    # chunks = chunker.chunk_documents(documents)
+    strategy = SlidingWindowStrategy(window_size=2000, step_size=1000)
+    chunker = DocumentChunker(strategy)
+    chunks = chunker.chunk_documents(documents)
     #
-    # print(f"Created {len(chunks)} chunks")
+    print(f"Created {len(chunks)} chunks")
     #
     # # Export to dict for storage
-    # chunk_dicts = [chunk.to_dict() for chunk in chunks]
-    # print(f"Exported {len(chunk_dicts)} chunk dictionaries")
+    chunk_dicts = [chunk.to_dict() for chunk in chunks]
+    index = Index(text_fields=["question", "content"], keyword_fields=[])
+    index.fit(chunk_dicts)
 
-    print("(This example requires a valid GitHub repository)")
+    query = "Can I still join the course after the start date?"
+    results = index.search(query)
+    print(f"Results for {query}: {results}")
+    # print(f"Exported {len(chunk_dicts)} chunk dictionaries")
 
 
 def example_strategy_comparison():
@@ -288,9 +294,9 @@ It has revolutionized computer vision and NLP.""",
 
 if __name__ == "__main__":
     # Run all examples
-    example_sliding_window()
-    example_semantic_chunking()
-    example_intelligent_chunking()
+    # example_sliding_window()
+    # example_semantic_chunking()
+    # example_intelligent_chunking()
     example_github_integration()
-    example_strategy_comparison()
-    example_custom_openai_integration()
+    # example_strategy_comparison()
+    # example_custom_openai_integration()
