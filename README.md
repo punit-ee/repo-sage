@@ -27,7 +27,7 @@ Build an **enterprise-grade AI assistant** that understands your codebase by:
 
 ### Try It Live
 
-🌐 **Web App**: [repo-sage.streamlit.app](https://share.streamlit.io) *(deploy your own for free!)*
+🌐 **Web App**: [https://repo-sage-ai.streamlit.app/](https://repo-sage-ai.streamlit.app/)
 
 ### Quick Demo
 
